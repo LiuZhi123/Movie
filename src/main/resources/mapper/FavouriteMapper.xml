@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.FavouriteMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Favourite" >
+    <id column="favouriteid" property="favouriteid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="movieid" property="movieid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="tvid" property="tvid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from favourite
+    where favouriteid = #{favouriteid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="pojo.Favourite" >
+    insert into favourite (favouriteid, userid, movieid, 
+      status, tvid)
+    values (#{favouriteid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{movieid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{tvid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="pojo.Favourite" >
+    update favourite
+    set userid = #{userid,jdbcType=INTEGER},
+      movieid = #{movieid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      tvid = #{tvid,jdbcType=INTEGER}
+    where favouriteid = #{favouriteid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select favouriteid, userid, movieid, status, tvid
+    from favourite
+    where favouriteid = #{favouriteid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select favouriteid, userid, movieid, status, tvid
+    from favourite
+  </select>
+
+  <update id="update" parameterType="pojo.Favourite" >
+    update favourite set status=#{status} where userid=#{userid} and movieid=#{movieid}
+  </update>
+
+  <select id="select1" parameterType="pojo.Favourite" resultMap="BaseResultMap">
+  select  * from favourite where userid=#{userid} and movieid=#{movieid}
+  </select>
+
+  <delete id="delete1" parameterType="pojo.Favourite">
+    delete from favourite where userid=#{userid} and movieid=#{movieid}
+  </delete>
+</mapper>

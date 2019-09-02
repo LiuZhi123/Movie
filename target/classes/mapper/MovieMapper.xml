@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.MovieMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Movie" >
+    <id column="movieid" property="movieid" jdbcType="VARCHAR" />
+    <result column="moviename" property="moviename" jdbcType="VARCHAR" />
+    <result column="movieinfo" property="movieinfo" jdbcType="VARCHAR" />
+    <result column="moviepic" property="moviepic" jdbcType="VARCHAR" />
+    <result column="movieyear" property="movieyear" jdbcType="VARCHAR" />
+    <result column="moviecountry" property="moviecountry" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="infopic" property="infopic" jdbcType="VARCHAR" />
+    <result column="genre" property="genre" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from movie
+    where movieid = #{movieid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="pojo.Movie" >
+    insert into movie (movieid, moviename, movieinfo, 
+      moviepic, movieyear, moviecountry, 
+      status, infopic, genre, 
+      score)
+    values (#{movieid,jdbcType=VARCHAR}, #{moviename,jdbcType=VARCHAR}, #{movieinfo,jdbcType=VARCHAR}, 
+      #{moviepic,jdbcType=VARCHAR}, #{movieyear,jdbcType=VARCHAR}, #{moviecountry,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{infopic,jdbcType=VARCHAR}, #{genre,jdbcType=VARCHAR}, 
+      #{score,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="pojo.Movie" >
+    update movie
+    set moviename = #{moviename,jdbcType=VARCHAR},
+      movieinfo = #{movieinfo,jdbcType=VARCHAR},
+      moviepic = #{moviepic,jdbcType=VARCHAR},
+      movieyear = #{movieyear,jdbcType=VARCHAR},
+      moviecountry = #{moviecountry,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      infopic = #{infopic,jdbcType=VARCHAR},
+      genre = #{genre,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER}
+    where movieid = #{movieid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select movieid, moviename, movieinfo, moviepic, movieyear, moviecountry, status, 
+    infopic, genre, score
+    from movie
+    where movieid = #{movieid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select movieid, moviename, movieinfo, moviepic, movieyear, moviecountry, status, 
+    infopic, genre, score
+    from movie
+  </select>
+
+  <select id="search" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from movie where moviename like '%${moviename}%'
+  </select>
+
+  <select id="select1" resultMap="BaseResultMap">
+    select * from movie limit 6;
+  </select>
+
+  <select id="selectGenre" resultMap="BaseResultMap">
+        select * from movie where genre=#{genre}
+    </select>
+
+  <select id="select2" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from movie,comment where movie.movieid=comment.movieid and comment.userid=#{userid}
+  </select>
+
+  <select id="select3" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from movie,favourite where movie.movieid=favourite.movieid and favourite.userid=#{userid}
+  </select>
+
+  <select id="select4" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from movie where  moviecountry=#{moviecountry}
+  </select>
+
+</mapper>

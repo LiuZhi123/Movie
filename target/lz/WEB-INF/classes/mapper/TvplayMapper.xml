@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.TvplayMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Tvplay" >
+    <id column="tvid" property="tvid" jdbcType="INTEGER" />
+    <result column="tvname" property="tvname" jdbcType="VARCHAR" />
+    <result column="tvpic" property="tvpic" jdbcType="VARCHAR" />
+    <result column="tvinfo" property="tvinfo" jdbcType="VARCHAR" />
+    <result column="tvyear" property="tvyear" jdbcType="VARCHAR" />
+    <result column="tvcountry" property="tvcountry" jdbcType="VARCHAR" />
+    <result column="infopic" property="infopic" jdbcType="VARCHAR" />
+    <result column="genre" property="genre" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tvplay
+    where tvid = #{tvid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="pojo.Tvplay" >
+    insert into tvplay (tvid, tvname, tvpic, 
+      tvinfo, tvyear, tvcountry, 
+      infopic, genre)
+    values (#{tvid,jdbcType=INTEGER}, #{tvname,jdbcType=VARCHAR}, #{tvpic,jdbcType=VARCHAR}, 
+      #{tvinfo,jdbcType=VARCHAR}, #{tvyear,jdbcType=VARCHAR}, #{tvcountry,jdbcType=VARCHAR}, 
+      #{infopic,jdbcType=VARCHAR}, #{genre,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="pojo.Tvplay" >
+    update tvplay
+    set tvname = #{tvname,jdbcType=VARCHAR},
+      tvpic = #{tvpic,jdbcType=VARCHAR},
+      tvinfo = #{tvinfo,jdbcType=VARCHAR},
+      tvyear = #{tvyear,jdbcType=VARCHAR},
+      tvcountry = #{tvcountry,jdbcType=VARCHAR},
+      infopic = #{infopic,jdbcType=VARCHAR},
+      genre = #{genre,jdbcType=VARCHAR}
+    where tvid = #{tvid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select tvid, tvname, tvpic, tvinfo, tvyear, tvcountry, infopic, genre
+    from tvplay
+    where tvid = #{tvid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select tvid, tvname, tvpic, tvinfo, tvyear, tvcountry, infopic, genre
+    from tvplay
+  </select>
+</mapper>

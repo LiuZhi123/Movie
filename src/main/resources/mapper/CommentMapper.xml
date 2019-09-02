@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Comment" >
+    <id column="cmid" property="cmid" jdbcType="INTEGER" />
+    <result column="cminfo" property="cminfo" jdbcType="VARCHAR" />
+    <result column="cmscore" property="cmscore" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="movieid" property="movieid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where cmid = #{cmid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="pojo.Comment" >
+    insert into comment (cmid, cminfo, cmscore, 
+      userid, movieid, username
+      )
+    values (#{cmid,jdbcType=INTEGER}, #{cminfo,jdbcType=VARCHAR}, #{cmscore,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{movieid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="pojo.Comment" >
+    update comment
+    set cminfo = #{cminfo,jdbcType=VARCHAR},
+      cmscore = #{cmscore,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      movieid = #{movieid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR}
+    where cmid = #{cmid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select cmid, cminfo, cmscore, userid, movieid, username
+    from comment
+    where cmid = #{cmid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select cmid, cminfo, cmscore, userid, movieid, username
+    from comment
+  </select>
+  <select id="select1" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from comment where movieid=#{movieid}
+  </select>
+
+  <select id="selectByUser" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from  comment where  userid=#{userid};
+  </select>
+</mapper>
